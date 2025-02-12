@@ -71,6 +71,7 @@ class RegistrationController extends Controller
             'verification_token' => $verificationToken,
         ]);
 
+        //verification link
         $verificationLink = route('verify', ['token' => $verificationToken]);
 
         return redirect()->route('login.create')->with('success', 'Registration successful! Please verify your account by clicking the link: ' . $verificationLink);

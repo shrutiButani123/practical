@@ -1,0 +1,1 @@
+<h1>Welcome Mail to {{ $user['first_name'] }} {{ $user['last_name'] }}</h1>

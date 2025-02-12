@@ -22,6 +22,7 @@
                                 <thead>
                                     <tr>
                                         <th>ID</th>
+                                        <th>Image</th>
                                         <th>Name</th>
                                         <th>Email</th>
                                         <th>Created At</th>

@@ -5,6 +5,8 @@ use App\Http\Controllers\RegistrationController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\UserController;
 
+use App\Http\Controllers\SubscribeController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -33,3 +35,6 @@ Route::middleware(['verify'])->group(function(){
 });
 
 Route::get('cities/{id}', [RegistrationController::class, 'getCitiesByState'])->name('cities');
+
+//Event and Listener
+Route::get('subscribed', [SubscribeController::class, 'subscribed'])->name('subscribed');
