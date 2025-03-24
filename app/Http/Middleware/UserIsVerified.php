@@ -5,6 +5,7 @@ namespace App\Http\Middleware;
 use Closure;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Illuminate\Support\Facades\Auth;
 
 class UserIsVerified
 {
@@ -24,6 +25,7 @@ class UserIsVerified
         // Check if the user is authenticated and verified
         if (auth()->check()) {
             if (!auth()->user()->verified) {
+                Auth::logout();
                 return redirect()->route('login.create')->with('error', 'You need to verify your account before logging in.');
             }
             return $next($request);

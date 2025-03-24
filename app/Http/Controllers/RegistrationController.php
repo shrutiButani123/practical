@@ -10,6 +10,7 @@ use Illuminate\Support\Str;
 use App\Models\User;
 use App\Models\State;
 use App\Models\City; 
+use Illuminate\Support\Facades\storage;
 
 class RegistrationController extends Controller
 {
@@ -41,16 +42,31 @@ class RegistrationController extends Controller
         }
         
         $imagePath = null;
-        if ($request->hasFile('image')) {
-            $extension = $request->file('image')->getClientOriginalExtension();
-            // $directory = public_path("users/{$user->id}");
-            $directory = public_path("users");
-            if (!File::exists($directory)) {
-                File::makeDirectory($directory, 0755, true);
-            }
-            $imageName = "{$request->first_name}.{$extension}"; 
-            $request->file('image')->move($directory, $imageName);
-            $imagePath = "users/{$imageName}";
+        // if ($request->hasFile('image')) {
+        //     $extension = $request->file('image')->getClientOriginalExtension();
+        //     // $directory = public_path("users/{$user->id}");
+        //     $directory = public_path("users");
+        //     if (!File::exists($directory)) {
+        //         File::makeDirectory($directory, 0755, true);
+        //     }
+        //     $imageName = "{$request->first_name}.{$extension}"; 
+        //     $request->file('image')->move($directory, $imageName);
+        //     $imagePath = "users/{$imageName}";
+        // }
+
+        if ($request->file('image')) {
+            // Delete old file
+            // if (Storage::disk('public')->exists(str_replace('storage/', '', $user->image))) {
+            //     Storage::disk('public')->delete(str_replace('storage/', '', $user->image));
+            // }
+            $file = $request->file('image');
+    
+            // Rename file with timestamp
+            $fileName = time() . '_' . uniqid() . '.' . $file->getClientOriginalExtension();
+    
+            // Store in storage/app/public/uploads
+            $file->storeAs('uploads', $fileName, 'public');
+            $imagePath = 'storage/uploads/' . $fileName;
         }
 
         // Generate a verification token

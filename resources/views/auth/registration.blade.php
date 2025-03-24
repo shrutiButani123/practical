@@ -78,7 +78,7 @@
                             <input type="checkbox" name="hobbies[]" value="music" class="form-check-input" {{in_array('music', old('hobbies', [])) ? 'checked' : '' }} id="music">
                             <label class="form-check-label" for="music">Music</label>
                         </div>
-                        @error('hobbies')  <span class="text-danger text-sm">{{ $message }}</span> @enderror
+                        @error('hobbies.*')  <span class="text-danger text-sm">{{ $message }}</span> @enderror
                     </div>
 
                     <div class="form-group mb-4">
